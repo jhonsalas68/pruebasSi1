@@ -4,15 +4,15 @@
 
 @section('content_header')
 @if(session('success'))
-    <div id="flash-message" class="p-4 mb-4 text-sm text-green-700 bg-green-100 rounded-lg" role="alert">
-        {{ session('success') }}
-    </div>
+<div id="flash-message" class="p-4 mb-4 text-sm text-green-700 bg-green-100 rounded-lg" role="alert">
+    {{ session('success') }}
+</div>
 
-    <script>
-        setTimeout(() => {
+<script>
+    setTimeout(() => {
             document.getElementById('flash-message').style.display = 'none';
         }, 3000); // Desaparece en 3 segundos
-    </script>
+</script>
 @endif
 
 <div class="flex justify-between items-center">
@@ -48,7 +48,8 @@
                 <h3 class="mb-5 text-lg font-normal text-gray-500 dark:text-gray-400">Estas seguramente seguro que
                     quieres borrar eso?</h3>
                 <button data-modal-hide="popup-modal" type="button"
-                    class="text-white bg-red-600 hover:bg-red-800 focus:ring-4 focus:outline-none focus:ring-red-300 dark:focus:ring-red-800 font-medium rounded-lg text-sm inline-flex items-center px-5 py-2.5 text-center"  onclick="submitDelete()">
+                    class="text-white bg-red-600 hover:bg-red-800 focus:ring-4 focus:outline-none focus:ring-red-300 dark:focus:ring-red-800 font-medium rounded-lg text-sm inline-flex items-center px-5 py-2.5 text-center"
+                    onclick="submitDelete()">
                     si, estoy seguro
                 </button>
                 <button data-modal-hide="popup-modal" type="button"
@@ -63,66 +64,64 @@
 @section('content')
 <p>aqui solo se ven categorias.</p>
 
+@if ($categorias!=[])
+<table id="categoria" class="table table-stripetcell-border">
+    <thead>
+        <tr>
+            <th scope="col" class="px-6 py-3">
+                ID
+            </th>
+            <th scope="col" class="px-6 py-3">
+                Nombre
+            </th>
+            <th scope="col" class="px-6 py-3">
+                Descrpción
+            </th>
+            <th scope="col" class="px-6 py-3">
+                Acciones
+            </th>
+        </tr>
+    </thead>
+    <tbody>
+        @foreach ($categorias as $categoria)
+        <tr>
+            <td>
+                {{ $categoria->id }}
+            </td>
+            <td class="px-6 py-4">
+                {{ $categoria->nombre }}
+            </td>
+            <td class="px-6 py-4">
+                {{ $categoria->descripcion }}
+            </td>
+            <td class="px-6 py-4">
+                <a href="{{route('categorias.edit',$categoria->id)}}"
+                    class="font-medium text-blue-600 dark:text-blue-500 hover:underline">Editar</a>
+                <form id="delete-form" method="POST" style="display: none;">
+                    @csrf
+                    @method('DELETE')
+                </form>
+                <a href="#" data-modal-target="popup-modal" data-modal-toggle="popup-modal"
+                    class="font-medium text-red-600 dark:text-red-500 hover:underline"
+                    onclick="setDeleteRoute({{ $categoria->id }})">
+                    Eliminar
+                </a>
 
+            </td>
+        </tr>
+        @endforeach
 
-    @if ($categorias!=[])
-    <table id="categoria" class="table table-stripetcell-border">
-        <thead>
-            <tr>
-                <th scope="col" class="px-6 py-3">
-                    ID
-                </th>
-                <th scope="col" class="px-6 py-3">
-                    Nombre
-                </th>
-                <th scope="col" class="px-6 py-3">
-                    Descrpción
-                </th>
-                <th scope="col" class="px-6 py-3">
-                    Acciones
-                </th>
-            </tr>
-        </thead>
-        <tbody>
-            @foreach ($categorias as $categoria)
-            <tr >
-                <td >
-                    {{ $categoria->id }}
-                </td>
-                <td class="px-6 py-4">
-                    {{ $categoria->nombre }}
-                </td>
-                <td class="px-6 py-4">
-                    {{ $categoria->descripcion }}
-                </td>
-                <td class="px-6 py-4">
-                    <a href="{{route('categorias.edit',$categoria->id)}}"
-                        class="font-medium text-blue-600 dark:text-blue-500 hover:underline">Editar</a>
-                    <form id="delete-form" method="POST" style="display: none;">
-                        @csrf
-                        @method('DELETE')
-                    </form>
-                    <a href="#" data-modal-target="popup-modal" data-modal-toggle="popup-modal" 
-                        class="font-medium text-red-600 dark:text-red-500 hover:underline"
-                        onclick="setDeleteRoute({{ $categoria->id }})">
-                        Eliminar
-                    </a>
-
-                </td>
-            </tr>
-            @endforeach
-
-        </tbody>
-    </table>
-    @else
-    <div>no hay nadinga</div>
-    @endif
+    </tbody>
+</table>
+@else
+<div>no hay nadinga</div>
+@endif
 
 
 @stop
 
 @section('css')
-    <link rel="stylesheet" href="https://cdn.datatables.net/2.2.2/css/dataTables.bootstrap5.css">
+<link rel="stylesheet" href="https://cdn.datatables.net/2.2.2/css/dataTables.bootstrap5.css">
 @stop
 
 @section('js')
@@ -159,5 +158,3 @@
     })
 </script>
 @stop
-
-
