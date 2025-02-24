@@ -1,6 +1,7 @@
 <?php
 
 use App\Http\Controllers\CategoriaController;
+use App\Http\Controllers\ProductoController;
 use App\Http\Controllers\PromotorController;
 use Illuminate\Support\Facades\Auth;
 use Illuminate\Support\Facades\Route;
@@ -29,3 +30,5 @@ Route::post('/promotores/guardar', [PromotorController::class, 'create'])->name(
 Route::get('/promotores/edit/{id}', [PromotorController::class, 'edit'])->name('promotores.edit');
 Route::put('/promotores/update/{id}', [PromotorController::class, 'update'])->name('promotores.update');
 Route::delete('/promotores/destroy/{id}', [PromotorController::class, 'destroy'])->name('promotores.destroy');
+
+Route::resource('/productos',ProductoController::class);

@@ -3,11 +3,12 @@
 @section('title', 'Dashboard')
 
 @section('content_header')
-    <h1>nalgotas</h1>
+
+    <h1>Bienvenido {{ $user->name }}</h1> 
 @stop
 
 @section('content')
-    <p>aqui solo se ven nalgas.</p>
+    <p>aqui solo se dice hola.</p>
 @stop
 
 @section('css')

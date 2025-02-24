@@ -12,4 +12,7 @@ class Promotor extends Model
         'telefono',
         'sexo'
     ];
+    public function productos(){
+        return $this->hasMany(Producto::class);
+      }
 }

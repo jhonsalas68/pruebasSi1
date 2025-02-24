@@ -345,7 +345,7 @@ return [
         ],
         [
             'text' => 'PRODUCTO',
-            'url' => '/producto',
+            'url' => '/productos',
             'icon' => 'fas fa-fw fa-shopping-cart',
         ],
         [
